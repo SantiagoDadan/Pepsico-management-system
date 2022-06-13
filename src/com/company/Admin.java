@@ -9,7 +9,7 @@ public class Admin extends Persona{
     }
 
     public Admin(int dni, String nombreApellido, String usuario, int pass, boolean admin, String categoria) {
-        super(dni, nombreApellido, usuario, pass, admin);
+        super(dni, nombreApellido, usuario, pass);
         this.categoria = categoria;
     }
 

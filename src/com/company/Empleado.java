@@ -10,7 +10,7 @@ public class Empleado extends Persona{
     }
 
     public Empleado(int dni, String nombreApellido, String usuario, int pass, boolean admin, int cantPedidos, int antiguedad, int comision) {
-        super(dni, nombreApellido, usuario, pass, admin);
+        super(dni, nombreApellido, usuario, pass);
         this.cantPedidos = cantPedidos;
         this.antiguedad = antiguedad;
         this.comision = comision;

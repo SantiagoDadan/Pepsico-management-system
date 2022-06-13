@@ -6,17 +6,16 @@ public abstract class Persona {
     private String nombreApellido;
     private String usuario;
     private int pass;
-    private boolean admin;
 
     public Persona() {
     }
 
-    public Persona(int dni, String nombreApellido, String usuario, int pass, boolean admin) {
+    public Persona(int dni, String nombreApellido, String usuario, int pass) {
         this.dni = dni;
         this.nombreApellido = nombreApellido;
         this.usuario = usuario;
         this.pass = pass;
-        this.admin = admin;
+
     }
 
     public int getDni() {
@@ -35,10 +34,6 @@ public abstract class Persona {
         return pass;
     }
 
-    public boolean isAdmin() {
-        return admin;
-    }
-
     public void setDni(int dni) {
         this.dni = dni;
     }
@@ -53,9 +48,5 @@ public abstract class Persona {
 
     public void setPass(int pass) {
         this.pass = pass;
-    }
-
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
     }
 }

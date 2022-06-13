@@ -48,8 +48,7 @@ public class Main {
 
                 case 2:
 
-                    Admin admin =loginAdmin();
-                    System.out.println(admin.toString());
+                    Admin admin = loginAdmin();
 
                     if(admin != null){
                         menuAdmin(admin);
@@ -99,7 +98,6 @@ public class Main {
                     aux.setNombreApellido(temp.getString("nombre"));
                     aux.setUsuario(usuario);
                     aux.setPass(pass);
-                    aux.setAdmin(false);
                     aux.setCantPedidos(temp.getInt("pedidos"));
                     aux.setAntiguedad(temp.getInt("antiguedad"));
                     aux.setComision(temp.getInt("comision"));
@@ -146,7 +144,6 @@ public class Main {
                     aux.setNombreApellido(temp.getString("nombre"));
                     aux.setUsuario(usuario);
                     aux.setPass(pass);
-                    aux.setAdmin(true);
                     aux.setCategoria(temp.getString("categoria"));
 
                     flag = 1;
