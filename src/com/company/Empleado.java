@@ -4,9 +4,12 @@ public class Empleado extends Persona{
 
     private int cantPedidos;
     private int antiguedad;
-    private float comision;
+    private int comision;
 
-    public Empleado(int dni, String nombreApellido, String usuario, int pass, boolean admin, int cantPedidos, int antiguedad, float comision) {
+    public Empleado() {
+    }
+
+    public Empleado(int dni, String nombreApellido, String usuario, int pass, boolean admin, int cantPedidos, int antiguedad, int comision) {
         super(dni, nombreApellido, usuario, pass, admin);
         this.cantPedidos = cantPedidos;
         this.antiguedad = antiguedad;
@@ -21,7 +24,19 @@ public class Empleado extends Persona{
         return antiguedad;
     }
 
-    public float getComision() {
+    public int getComision() {
         return comision;
+    }
+
+    public void setCantPedidos(int cantPedidos) {
+        this.cantPedidos = cantPedidos;
+    }
+
+    public void setAntiguedad(int antiguedad) {
+        this.antiguedad = antiguedad;
+    }
+
+    public void setComision(int comision) {
+        this.comision = comision;
     }
 }

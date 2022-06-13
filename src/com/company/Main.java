@@ -1,6 +1,6 @@
 package com.company;
 
-import netscape.javascript.JSObject;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,29 +14,33 @@ public class Main {
 
         scan = new Scanner(System.in);
 
-
+        menu();
 
         scan.close();
     }
 
     public static void menu(){
 
-        int opcion, loginStatus;
+        int opcion;
+
+        Empleado eAux;
+        Admin aAux;
 
         do {
 
             System.out.println("PepsiCo, inc\n\n");
             System.out.println("1 - Ingresar como empleado\n2 - Ingresar como admin\n0 - Salir");
             opcion = scan.nextInt();
+            scan.nextLine();
 
             switch (opcion){
 
                 case 1:
 
-                    loginStatus = login();
+                    Empleado empleado = loginEmpleado();
 
-                    if(loginStatus == 1){
-                        menuEmpleado("asd");
+                    if(empleado != null){
+                        menuEmpleado(empleado);
                     }else{
                         System.out.println("No se econtro el Usuario y/o la contraseña!\n");
                     }
@@ -44,10 +48,11 @@ public class Main {
 
                 case 2:
 
-                    loginStatus = login();
+                    Admin admin =loginAdmin();
+                    System.out.println(admin.toString());
 
-                    if(loginStatus == 1){
-                        menuAdmin("asd");
+                    if(admin != null){
+                        menuAdmin(admin);
                     }else{
                         System.out.println("No se econtro el Usuario o no posee derechos de administrador!\n");
                     }
@@ -67,27 +72,103 @@ public class Main {
         }while (opcion != 0);
     }
 
-    public static int login(){
+    public static Empleado loginEmpleado(){
 
-        String fuente = JsonUtiles.leer();
+        int flag = 0;
+
+        Empleado aux = new Empleado();
+
+        System.out.println("\nUsuario:");
+        String usuario = scan.nextLine();
+        System.out.println("\npass:");
+        int pass = scan.nextInt();
+
+        String fuente = JsonUtiles.leer("usersData");
 
         try {
             JSONObject obj = new JSONObject(fuente);
+            JSONArray array = obj.getJSONArray("empleados");
 
+            for (int i = 0; i < array.length(); i++){
+
+                JSONObject temp = array.getJSONObject(i);
+                if(temp.getString("user").equals(usuario) && (int) temp.getInt("pass") == pass){
+
+                    assert false;
+                    aux.setDni(temp.getInt("dni"));
+                    aux.setNombreApellido(temp.getString("nombre"));
+                    aux.setUsuario(usuario);
+                    aux.setPass(pass);
+                    aux.setAdmin(false);
+                    aux.setCantPedidos(temp.getInt("pedidos"));
+                    aux.setAntiguedad(temp.getInt("antiguedad"));
+                    aux.setComision(temp.getInt("comision"));
+
+                    flag = 1;
+                }
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-
-        return 0;
+        if(flag == 1){
+            return aux;
+        }else{
+            return null;
+        }
     }
 
-    public static void menuEmpleado(String nombre){
+    public static Admin loginAdmin(){
+
+        int flag = 0;
+
+        Admin aux = new Admin();
+
+        System.out.println("\nUsuario:");
+        String usuario = scan.nextLine();
+        System.out.println("\npass:");
+        int pass = scan.nextInt();
+
+        String fuente = JsonUtiles.leer("usersData");
+
+        try {
+            JSONObject obj = new JSONObject(fuente);
+            JSONArray array = obj.getJSONArray("admins");
+
+            for (int i = 0; i < array.length(); i++){
+
+                JSONObject temp = array.getJSONObject(i);
+
+                if(temp.getString("user").equals(usuario) && temp.getInt("pass") == pass){
+
+                    aux.setDni(temp.getInt("dni"));
+                    aux.setNombreApellido(temp.getString("nombre"));
+                    aux.setUsuario(usuario);
+                    aux.setPass(pass);
+                    aux.setAdmin(true);
+                    aux.setCategoria(temp.getString("categoria"));
+
+                    flag = 1;
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if(flag == 1){
+            return aux;
+        }else{
+            return null;
+        }
+    }
+
+    public static void menuEmpleado(Empleado empleado){
 
         int opcion;
 
-        System.out.println("Bienvenido " +nombre+ "!\n\n");
+        System.out.println("Bienvenido " +empleado.getNombreApellido()+ "!\n\n");
 
         do {
 
@@ -126,11 +207,11 @@ public class Main {
 
     }
 
-    public static void menuAdmin(String nombre){
+    public static void menuAdmin(Admin admin){
 
         int opcion;
 
-        System.out.println("Bienvenido " +nombre+ "!\n\n");
+        System.out.println("Bienvenido " +admin.getNombreApellido()+ "!\n\n");
 
         do {
 

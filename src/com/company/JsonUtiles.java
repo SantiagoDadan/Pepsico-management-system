@@ -10,9 +10,10 @@ import org.json.JSONException;
 
 
 public class JsonUtiles {
+
     public static void grabar(JSONArray array) {
         try {
-            FileWriter file = new FileWriter("test.json");
+            FileWriter file = new FileWriter("usersData.json");
             file.write(array.toString());
             file.flush();
             file.close();
@@ -22,12 +23,12 @@ public class JsonUtiles {
         }
     }
 
-    public static String leer()
+    public static String leer(String archivo)
     {
-        String contenido = "user";
+        String contenido = "";
         try
         {
-            contenido = new String(Files.readAllBytes(Paths.get("test.json")));
+            contenido = new String(Files.readAllBytes(Paths.get(archivo + ".json")));
         }
         catch (IOException e)
         {
