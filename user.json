@@ -1,0 +1,23 @@
+{
+	"empleados": [
+	
+		{
+			"nombre": "Santiago Dadan",
+			"user": "santi",
+			"pass": 123,
+			"admin": false
+		},
+		{
+			"nombre": "Walter Dadan",
+			"user": "walter",
+			"pass": 123,
+			"admin": false
+		},
+		{
+			"nombre": "Juan Perez",
+			"user": "juan",
+			"pass": 123,
+			"admin": true
+		}
+	]
+}
