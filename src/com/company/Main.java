@@ -22,7 +22,7 @@ public class Main {
 
         Fila<Integer> fila = new Fila<Integer>();
 
-        fila.insertar(1);
+        fila.insertar(90);
         fila.insertar(2);
         fila.insertar(3);
         fila.insertar(4);
