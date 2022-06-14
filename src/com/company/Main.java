@@ -34,6 +34,7 @@ public class Main {
         }
 
         fila.eliminar(2);
+        fila.avanzar();
 
         ArrayList<Integer> array2 = fila.listar();
 
@@ -120,7 +121,6 @@ public class Main {
                 JSONObject temp = array.getJSONObject(i);
                 if(temp.getString("user").equals(usuario) && (int) temp.getInt("pass") == pass){
 
-                    assert false;
                     aux.setDni(temp.getInt("dni"));
                     aux.setNombreApellido(temp.getString("nombre"));
                     aux.setUsuario(usuario);
