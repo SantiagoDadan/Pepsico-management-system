@@ -1,9 +1,15 @@
 package com.company;
 
+import com.company.assets.Fila;
+import com.company.assets.JsonUtiles;
+import com.company.personal.Admin;
+import com.company.personal.Empleado;
+import com.company.personal.Persona;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -14,7 +20,28 @@ public class Main {
 
         scan = new Scanner(System.in);
 
-        menu();
+        Fila<Integer> fila = new Fila<Integer>();
+
+        fila.insertar(1);
+        fila.insertar(2);
+        fila.insertar(3);
+        fila.insertar(4);
+
+        ArrayList<Integer> array = fila.listar();
+
+        for (int i = 0; i < array.size(); i++){
+            System.out.println(array.get(i));
+        }
+
+        fila.eliminar(2);
+
+        ArrayList<Integer> array2 = fila.listar();
+
+        System.out.println("\nElimino el 2\n");
+
+        for (int i = 0; i < array2.size(); i++){
+            System.out.println(array2.get(i));
+        }
 
         scan.close();
     }

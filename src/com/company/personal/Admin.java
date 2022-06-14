@@ -1,6 +1,6 @@
-package com.company;
+package com.company.personal;
 
-public class Admin extends Persona{
+public class Admin extends Persona {
 
     String categoria;
 

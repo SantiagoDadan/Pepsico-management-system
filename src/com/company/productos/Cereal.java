@@ -1,6 +1,6 @@
-package com.company;
+package com.company.productos;
 
-public class Cereal extends Producto{
+public class Cereal extends Producto {
 
     // ATRIBUTOS
 

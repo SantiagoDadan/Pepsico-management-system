@@ -1,6 +1,6 @@
-package com.company;
+package com.company.personal;
 
-public class Empleado extends Persona{
+public class Empleado extends Persona {
 
     private int cantPedidos;
     private int antiguedad;

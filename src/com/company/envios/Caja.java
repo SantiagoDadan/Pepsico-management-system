@@ -1,4 +1,6 @@
-package com.company;
+package com.company.envios;
+
+import com.company.productos.Producto;
 
 public class Caja {
 
