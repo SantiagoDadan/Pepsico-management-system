@@ -31,7 +31,7 @@ public class Bebiba extends Producto {
 
     @Override
     public String toString() {
-        return super.toString() + "Bebida{" +
+        return super.toString() + " Bebida {" +
                 "sabor='" + sabor + '\'' +
                 '}';
     }

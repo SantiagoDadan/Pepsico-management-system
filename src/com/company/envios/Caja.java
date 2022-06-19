@@ -2,7 +2,9 @@ package com.company.envios;
 
 import com.company.productos.Producto;
 
-public class Caja {
+import java.io.Serializable;
+
+public class Caja implements Serializable {
 
     // ATRIBUTOS
 
@@ -49,10 +51,9 @@ public class Caja {
 
     @Override
     public String toString() {
-        return "Caja{" +
-                "tipoProducto=" + tipoProducto +
+        return "\n{ tipoProducto=" + tipoProducto +
                 ", tamanioProductos='" + tamanioProductos +
-                ", cantProductosPorCaja='" + '\'' +
-                '}';
+                ", cantProductosPorCaja='" + cantProductosPorCaja +
+                '}' + "\n";
     }
 }

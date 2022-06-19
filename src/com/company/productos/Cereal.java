@@ -4,31 +4,31 @@ public class Cereal extends Producto {
 
     // ATRIBUTOS
 
-    private int esDulce;
+    private boolean azucar;
 
     // CONSTRUCTOR
 
-    public Cereal(int idProducto, String nombre, String tipo, int stockCajas, int esDulce) {
+    public Cereal(int idProducto, String nombre, String tipo, int stockCajas, boolean azucar) {
         super(idProducto, nombre, tipo, stockCajas);
-        this.esDulce = esDulce;
+        this.azucar = azucar;
     }
 
     // SETTERS Y GETTERS
 
-    public int getEsDulce() {
-        return esDulce;
+    public boolean getEsDulce() {
+        return azucar;
     }
 
-    public void setEsDulce(int esDulce) {
-        this.esDulce = esDulce;
+    public void setEsDulce(boolean esDulce) {
+        this.azucar = esDulce;
     }
 
     // TOSTRING
 
     @Override
     public String toString() {
-        return super.toString() + "Cereal{" +
-                "esDulce=" + esDulce +
+        return super.toString() + " Cereal {" +
+                "Azucar=" + azucar +
                 '}';
     }
 }

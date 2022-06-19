@@ -5,7 +5,7 @@
 			"dni": 10111111,
 			"nombre": "Santiago Dadan",
 			"user": "santi",
-			"pass": 123,
+			"pass": "123",
 			"pedidos": 0,
 			"antiguedad": 0,
 			"comision": 0
@@ -14,7 +14,7 @@
 			"dni": 20222222,
 			"nombre": "Pablo gonzales",
 			"user": "pablo",
-			"pass": 123,
+			"pass": "123",
 			"pedidos": 0,
 			"antiguedad": 0,
 			"comision": 0
@@ -27,7 +27,7 @@
 			"dni": 30333333,
 			"nombre": "Juan Perez",
 			"user": "juan",
-			"pass": 123,
+			"pass": "123",
 			"categoria": "A"
 		}
 	

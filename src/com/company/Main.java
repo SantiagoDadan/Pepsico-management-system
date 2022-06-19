@@ -1,15 +1,24 @@
 package com.company;
 
 import com.company.assets.Fila;
+import com.company.assets.FilesUtiles;
 import com.company.assets.JsonUtiles;
+import com.company.envios.Caja;
+import com.company.envios.Pedido;
 import com.company.exceptions.PasswordIncorrecto;
 import com.company.exceptions.UsuarioIncorrecto;
 import com.company.personal.Admin;
 import com.company.personal.Empleado;
+import com.company.productos.Bebiba;
+import com.company.productos.Cereal;
+import com.company.productos.Producto;
+import com.company.productos.Snack;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.awt.image.AreaAveragingScaleFilter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,36 +30,14 @@ public class Main {
 
         scan = new Scanner(System.in);
 
-        /*Fila<Integer> fila = new Fila<Integer>();
+        App app = new App();
 
-        fila.insertar(90);
-        fila.insertar(2);
-        fila.insertar(3);
-        fila.insertar(4);
-
-        ArrayList<Integer> array = fila.listar();
-
-        for (int i = 0; i < array.size(); i++){
-            System.out.println(array.get(i));
-        }
-
-        fila.eliminar(2);
-        fila.avanzar();
-
-        ArrayList<Integer> array2 = fila.listar();
-
-        System.out.println("\nElimino el 2\n");
-
-        for (int i = 0; i < array2.size(); i++){
-            System.out.println(array2.get(i));
-        }*/
-
-        menu();
+        menu(app);
 
         scan.close();
     }
 
-    public static void menu(){
+    public static void menu(App app){
 
         int opcion;
 
@@ -70,7 +57,7 @@ public class Main {
 
                     try{
                         Empleado empleado = loginEmp();
-                        menuEmpleado(empleado);
+                        menuEmpleado(empleado, app);
 
                     }catch (UsuarioIncorrecto | PasswordIncorrecto e){
 
@@ -85,7 +72,7 @@ public class Main {
                     try{
 
                         Admin admin = loginAdmin();
-                        menuAdmin(admin);
+                        menuAdmin(admin, app);
 
                     }catch (UsuarioIncorrecto | PasswordIncorrecto e){
 
@@ -116,7 +103,7 @@ public class Main {
         System.out.println("\nUsuario:");
         String usuario = scan.nextLine();
         System.out.println("\npass:");
-        int pass = scan.nextInt();
+        String pass = scan.nextLine();
 
         String fuente = JsonUtiles.leer("usersData");
 
@@ -132,7 +119,7 @@ public class Main {
 
                     fUser = 1;
 
-                    if(temp.getInt("pass") == pass){
+                    if(temp.getString("pass").equals(pass)){
 
                         fPass = 1;
 
@@ -170,7 +157,7 @@ public class Main {
         System.out.println("\nUsuario:");
         String usuario = scan.nextLine();
         System.out.println("\npass:");
-        int pass = scan.nextInt();
+        String pass = scan.nextLine();
 
         String fuente = JsonUtiles.leer("usersData");
 
@@ -186,7 +173,7 @@ public class Main {
 
                     fUser = 1;
 
-                    if(temp.getInt("pass") == pass){
+                    if(temp.getString("pass").equals(pass)){
 
                         fPass = 1;
 
@@ -214,7 +201,7 @@ public class Main {
         return aux;
     }
 
-    public static void menuEmpleado(Empleado empleado) {
+    public static void menuEmpleado(Empleado empleado, App app) {
 
         int opcion;
 
@@ -222,17 +209,29 @@ public class Main {
 
         do {
 
-            System.out.println("1 - Preparar pedido\n2 - Listar pedidos\n3 - Ver stock de productos\n4 - Informar falta de stock");
+            System.out.println("1 - Preparar pedido\n2 - Listar pedidos\n3 - Ver stock de productos\n4 - Informar falta de stock\n0 - Salir");
             opcion = scan.nextInt();
 
             switch (opcion){
 
                 case 1:
 
+                    System.out.println("\nDatos del pedido:\n");
+                    Pedido aux = app.getPedidos().avanzar();
+                    System.out.println(aux.toString());
+                    System.out.println("\nPedido en camino!\n");
+                    empleado.cargarPedido(aux.getArrayListCajas().size());
+
                     break;
 
                 case 2:
 
+                    ArrayList<Pedido> pedidos = app.listaPedidos();
+
+                    for (int i = 0; i < pedidos.size(); i++){
+
+                        System.out.println(pedidos.get(i).toString());
+                    }
                     break;
 
                 case 3:
@@ -249,6 +248,7 @@ public class Main {
 
                 default:
 
+                    System.out.println("Ingrese una opcion valida!");
                     break;
             }
 
@@ -257,7 +257,7 @@ public class Main {
 
     }
 
-    public static void menuAdmin(Admin admin){
+    public static void menuAdmin(Admin admin, App app){
 
         int opcion;
 
@@ -265,7 +265,7 @@ public class Main {
 
         do {
 
-            System.out.println("1 - Listar\n2 - Modificar\n3 - Agregar\n4 - Eliminar");
+            System.out.println("1 - Listar\n2 - Modificar\n3 - Agregar\n4 - Eliminar\n0 - Salir");
             opcion = scan.nextInt();
 
             switch (opcion){
@@ -292,6 +292,7 @@ public class Main {
 
                 default:
 
+                    System.out.println("Ingrese una opcion valida!");
                     break;
             }
 

@@ -5,12 +5,12 @@ public abstract class Persona {
     private int dni;
     private String nombreApellido;
     private String usuario;
-    private int pass;
+    private String pass;
 
     public Persona() {
     }
 
-    public Persona(int dni, String nombreApellido, String usuario, int pass) {
+    public Persona(int dni, String nombreApellido, String usuario, String pass) {
         this.dni = dni;
         this.nombreApellido = nombreApellido;
         this.usuario = usuario;
@@ -29,7 +29,7 @@ public abstract class Persona {
         return usuario;
     }
 
-    public int getPass() {
+    public String getPass() {
         return pass;
     }
 
@@ -45,7 +45,7 @@ public abstract class Persona {
         this.usuario = usuario;
     }
 
-    public void setPass(int pass) {
+    public void setPass(String pass) {
         this.pass = pass;
     }
 }

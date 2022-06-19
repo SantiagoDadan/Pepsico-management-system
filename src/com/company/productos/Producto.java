@@ -1,6 +1,8 @@
 package com.company.productos;
 
-public abstract class Producto {
+import java.io.Serializable;
+
+public abstract class Producto implements Serializable {
 
     // ATRIBUTOS
 
@@ -62,8 +64,8 @@ public abstract class Producto {
 
     @Override
     public String toString() {
-        return "Producto{" +
-                "idProducto=" + idProducto +
+        return " {" +
+                "id=" + idProducto +
                 ", nombre='" + nombre + '\'' +
                 ", tipo='" + tipo + '\'' +
                 ", stockCajas=" + stockCajas +

@@ -1,8 +1,9 @@
 package com.company.envios;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Pedido {
+public class Pedido implements Serializable {
 
     // ATRIBUTOS
 
@@ -13,7 +14,7 @@ public class Pedido {
     // CONSTRUCTOR
 
     public Pedido(ArrayList<Caja> arrayListCajas, String destinatario, String direccion) {
-        this.arrayListCajas = new ArrayList<Caja>();
+        this.arrayListCajas = arrayListCajas;
         this.destinatario = destinatario;
         this.direccion = direccion;
     }
@@ -46,4 +47,13 @@ public class Pedido {
 
 
     // TOSTRING
+
+
+    @Override
+    public String toString() {
+
+        return "\nPedido para: " + destinatario+ " en: "+ direccion +"\n" +
+                "Cajas =\n" +  arrayListCajas +
+                 '\n';
+    }
 }

@@ -29,7 +29,7 @@ public class Snack extends Producto {
 
     @Override
     public String toString() {
-        return super.toString() + "Snack{" +
+        return super.toString() + " Snack {" +
                 "esSalado=" + esSalado +
                 '}';
     }
