@@ -6,7 +6,6 @@
 			"nombre": "Santiago Dadan",
 			"user": "santi",
 			"pass": 123,
-			"admin": false,
 			"pedidos": 0,
 			"antiguedad": 0,
 			"comision": 0
@@ -16,7 +15,6 @@
 			"nombre": "Pablo gonzales",
 			"user": "pablo",
 			"pass": 123,
-			"admin": false,
 			"pedidos": 0,
 			"antiguedad": 0,
 			"comision": 0
@@ -30,7 +28,6 @@
 			"nombre": "Juan Perez",
 			"user": "juan",
 			"pass": 123,
-			"admin": true,
 			"categoria": "A"
 		}
 	

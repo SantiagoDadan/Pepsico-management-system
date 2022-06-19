@@ -2,9 +2,10 @@ package com.company;
 
 import com.company.assets.Fila;
 import com.company.assets.JsonUtiles;
+import com.company.exceptions.PasswordIncorrecto;
+import com.company.exceptions.UsuarioIncorrecto;
 import com.company.personal.Admin;
 import com.company.personal.Empleado;
-import com.company.personal.Persona;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,7 +21,7 @@ public class Main {
 
         scan = new Scanner(System.in);
 
-        Fila<Integer> fila = new Fila<Integer>();
+        /*Fila<Integer> fila = new Fila<Integer>();
 
         fila.insertar(90);
         fila.insertar(2);
@@ -42,7 +43,9 @@ public class Main {
 
         for (int i = 0; i < array2.size(); i++){
             System.out.println(array2.get(i));
-        }
+        }*/
+
+        menu();
 
         scan.close();
     }
@@ -65,24 +68,30 @@ public class Main {
 
                 case 1:
 
-                    Empleado empleado = loginEmpleado();
-
-                    if(empleado != null){
+                    try{
+                        Empleado empleado = loginEmp();
                         menuEmpleado(empleado);
-                    }else{
-                        System.out.println("No se econtro el Usuario y/o la contraseña!\n");
+
+                    }catch (UsuarioIncorrecto | PasswordIncorrecto e){
+
+                        System.out.println(e.getMessage());
                     }
+
                     break;
+
 
                 case 2:
 
-                    Admin admin = loginAdmin();
+                    try{
 
-                    if(admin != null){
+                        Admin admin = loginAdmin();
                         menuAdmin(admin);
-                    }else{
-                        System.out.println("No se econtro el Usuario o no posee derechos de administrador!\n");
+
+                    }catch (UsuarioIncorrecto | PasswordIncorrecto e){
+
+                        System.out.println(e.getMessage());
                     }
+
                     break;
 
                 case 0:
@@ -99,10 +108,9 @@ public class Main {
         }while (opcion != 0);
     }
 
-    public static Empleado loginEmpleado(){
+    public static Empleado loginEmp() throws UsuarioIncorrecto, PasswordIncorrecto{
 
-        int flag = 0;
-
+        int fUser = 0, fPass = 0;
         Empleado aux = new Empleado();
 
         System.out.println("\nUsuario:");
@@ -119,35 +127,44 @@ public class Main {
             for (int i = 0; i < array.length(); i++){
 
                 JSONObject temp = array.getJSONObject(i);
-                if(temp.getString("user").equals(usuario) && (int) temp.getInt("pass") == pass){
 
-                    aux.setDni(temp.getInt("dni"));
-                    aux.setNombreApellido(temp.getString("nombre"));
-                    aux.setUsuario(usuario);
-                    aux.setPass(pass);
-                    aux.setCantPedidos(temp.getInt("pedidos"));
-                    aux.setAntiguedad(temp.getInt("antiguedad"));
-                    aux.setComision(temp.getInt("comision"));
+                if(temp.getString("user").equals(usuario)){
 
-                    flag = 1;
+                    fUser = 1;
+
+                    if(temp.getInt("pass") == pass){
+
+                        fPass = 1;
+
+                        aux.setDni(temp.getInt("dni"));
+                        aux.setNombreApellido(temp.getString("nombre"));
+                        aux.setUsuario(usuario);
+                        aux.setPass(pass);
+                        aux.setCantPedidos(temp.getInt("pedidos"));
+                        aux.setAntiguedad(temp.getInt("antiguedad"));
+                        aux.setComision(temp.getInt("comision"));
+                    }
                 }
+            }
+
+            if(fUser == 0){
+                throw new UsuarioIncorrecto("Usuario invalido");
+
+            }else if(fPass == 0){
+                throw new PasswordIncorrecto("Password invalida");
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        if(flag == 1){
-            return aux;
-        }else{
-            return null;
-        }
+
+        return aux;
     }
 
-    public static Admin loginAdmin(){
+    public static Admin loginAdmin() throws UsuarioIncorrecto, PasswordIncorrecto{
 
-        int flag = 0;
-
+        int fUser = 0, fPass = 0;
         Admin aux = new Admin();
 
         System.out.println("\nUsuario:");
@@ -165,30 +182,39 @@ public class Main {
 
                 JSONObject temp = array.getJSONObject(i);
 
-                if(temp.getString("user").equals(usuario) && temp.getInt("pass") == pass){
+                if(temp.getString("user").equals(usuario)){
 
-                    aux.setDni(temp.getInt("dni"));
-                    aux.setNombreApellido(temp.getString("nombre"));
-                    aux.setUsuario(usuario);
-                    aux.setPass(pass);
-                    aux.setCategoria(temp.getString("categoria"));
+                    fUser = 1;
 
-                    flag = 1;
+                    if(temp.getInt("pass") == pass){
+
+                        fPass = 1;
+
+                        aux.setDni(temp.getInt("dni"));
+                        aux.setNombreApellido(temp.getString("nombre"));
+                        aux.setUsuario(usuario);
+                        aux.setPass(pass);
+                        aux.setCategoria(temp.getString("categoria"));
+
+                    }
                 }
+            }
+
+            if(fUser == 0){
+                throw new UsuarioIncorrecto("Usuario invalido");
+
+            }else if(fPass == 0){
+                throw new PasswordIncorrecto("Password invalida");
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        if(flag == 1){
-            return aux;
-        }else{
-            return null;
-        }
+        return aux;
     }
 
-    public static void menuEmpleado(Empleado empleado){
+    public static void menuEmpleado(Empleado empleado) {
 
         int opcion;
 
@@ -274,5 +300,23 @@ public class Main {
 
     }
 
+    public static void menuModificar(){
+
+    }
+
+    public static void menuAgregar(){
+
+    }
+
+    public static void menuEliminar(){
+
+    }
+
+    public static void menuListar(){
+
+    }
+
 }
+
+
 

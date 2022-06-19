@@ -15,7 +15,6 @@ public abstract class Persona {
         this.nombreApellido = nombreApellido;
         this.usuario = usuario;
         this.pass = pass;
-
     }
 
     public int getDni() {
