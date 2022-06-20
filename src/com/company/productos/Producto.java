@@ -56,7 +56,7 @@ public abstract class Producto implements Serializable {
     }
 
     public void setStockCajas(int stockCajas) {
-        this.stockCajas = stockCajas;
+        this.stockCajas += stockCajas;
     }
 
 

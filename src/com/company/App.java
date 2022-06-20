@@ -3,6 +3,10 @@ package com.company;
 import com.company.assets.Fila;
 import com.company.assets.FilesUtiles;
 import com.company.envios.Pedido;
+import com.company.productos.Bebiba;
+import com.company.productos.Cereal;
+import com.company.productos.Producto;
+import com.company.productos.Snack;
 
 import java.util.ArrayList;
 
@@ -36,6 +40,19 @@ public class App {
         ArrayList<Pedido> aux = pedidos.listar();
 
         return aux;
+    }
+
+    public StringBuilder listarStock(){
+
+        ArrayList<Producto> aux = FilesUtiles.leerProductos("productos.bin");
+
+        StringBuilder stocks = new StringBuilder();
+
+        for (Producto e : aux){
+            stocks.append("{ " + e.getNombre()+ " " + e.getStockCajas() + " cajas }\n");
+        }
+
+        return stocks;
     }
 
 

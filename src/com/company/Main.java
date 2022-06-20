@@ -209,7 +209,7 @@ public class Main {
 
         do {
 
-            System.out.println("1 - Preparar pedido\n2 - Listar pedidos\n3 - Ver stock de productos\n4 - Informar falta de stock\n0 - Salir");
+            System.out.println("1 - Preparar pedido\n2 - Listar pedidos\n3 - Ver stock de productos\n4 - Informar falta de stock\n0 - Salir\n\n");
             opcion = scan.nextInt();
 
             switch (opcion){
@@ -236,9 +236,31 @@ public class Main {
 
                 case 3:
 
+                    String stock = app.listarStock().toString();
+
+                    System.out.println(stock);
+
                     break;
 
                 case 4:
+
+                    ArrayList<Producto> productos = new ArrayList<>();
+
+                    StringBuilder flag = new StringBuilder();
+
+                    for (Producto e : productos){
+
+                        if (e.getStockCajas() < 10){
+                            e.setStockCajas(50);
+                            flag.append("{ Stock de " + e.getNombre() + " renovado! | Actual: " + e.getStockCajas() + " }\n");
+                        }
+                    }
+
+                    if (flag.isEmpty()){
+                        flag.append("\nNo hay stock que actualizar!\n\n");
+                    }
+
+                    System.out.println(flag);
 
                     break;
 
@@ -248,7 +270,7 @@ public class Main {
 
                 default:
 
-                    System.out.println("Ingrese una opcion valida!");
+                    System.out.println("\nIngrese una opcion valida!\n\n");
                     break;
             }
 
