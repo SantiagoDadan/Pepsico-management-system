@@ -28,6 +28,14 @@
 			"nombre": "Juan Perez",
 			"user": "juan",
 			"pass": "123",
+			"categoria": "B"
+		},
+
+		{
+			"dni": 40444444,
+			"nombre": "Char mander",
+			"user": "admin",
+			"pass": "123",
 			"categoria": "A"
 		}
 	

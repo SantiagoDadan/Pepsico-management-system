@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import java.awt.image.AreaAveragingScaleFilter;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class Main {
@@ -56,7 +57,7 @@ public class Main {
                 case 1:
 
                     try{
-                        Empleado empleado = loginEmp();
+                        Empleado empleado = loginEmp(app);
                         menuEmpleado(empleado, app);
 
                     }catch (UsuarioIncorrecto | PasswordIncorrecto e){
@@ -71,7 +72,7 @@ public class Main {
 
                     try{
 
-                        Admin admin = loginAdmin();
+                        Admin admin = loginAdmin(app);
                         menuAdmin(admin, app);
 
                     }catch (UsuarioIncorrecto | PasswordIncorrecto e){
@@ -83,6 +84,7 @@ public class Main {
 
                 case 0:
 
+                    System.out.println("Hasta la proxima!");
                     break;
 
                 default:
@@ -95,107 +97,76 @@ public class Main {
         }while (opcion != 0);
     }
 
-    public static Empleado loginEmp() throws UsuarioIncorrecto, PasswordIncorrecto{
+    public static Empleado loginEmp(App app) throws UsuarioIncorrecto, PasswordIncorrecto{
 
         int fUser = 0, fPass = 0;
+
+        HashSet<Empleado> empleados = app.getEmpleados();
         Empleado aux = new Empleado();
 
         System.out.println("\nUsuario:");
         String usuario = scan.nextLine();
+
         System.out.println("\npass:");
         String pass = scan.nextLine();
 
-        String fuente = JsonUtiles.leer("usersData");
+        for (Empleado empleado : empleados) {
 
-        try {
-            JSONObject obj = new JSONObject(fuente);
-            JSONArray array = obj.getJSONArray("empleados");
+            if(empleado.getUsuario().equals(usuario)){
 
-            for (int i = 0; i < array.length(); i++){
+                fUser = 1;
 
-                JSONObject temp = array.getJSONObject(i);
+                if(empleado.getPass().equals(pass)){
 
-                if(temp.getString("user").equals(usuario)){
-
-                    fUser = 1;
-
-                    if(temp.getString("pass").equals(pass)){
-
-                        fPass = 1;
-
-                        aux.setDni(temp.getInt("dni"));
-                        aux.setNombreApellido(temp.getString("nombre"));
-                        aux.setUsuario(usuario);
-                        aux.setPass(pass);
-                        aux.setCantPedidos(temp.getInt("pedidos"));
-                        aux.setAntiguedad(temp.getInt("antiguedad"));
-                        aux.setComision(temp.getInt("comision"));
-                    }
+                    fPass = 1;
+                    aux = empleado;
                 }
             }
-
-            if(fUser == 0){
-                throw new UsuarioIncorrecto("Usuario invalido");
-
-            }else if(fPass == 0){
-                throw new PasswordIncorrecto("Password invalida");
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
 
+        if(fUser == 0){
+            throw new UsuarioIncorrecto("Usuario invalido");
+
+        }else if(fPass == 0){
+
+            throw new PasswordIncorrecto("Password invalida");
+        }
 
         return aux;
     }
 
-    public static Admin loginAdmin() throws UsuarioIncorrecto, PasswordIncorrecto{
+    public static Admin loginAdmin(App app) throws UsuarioIncorrecto, PasswordIncorrecto{
 
         int fUser = 0, fPass = 0;
+
+        HashSet<Admin> admins = app.getAdmins();
         Admin aux = new Admin();
 
         System.out.println("\nUsuario:");
         String usuario = scan.nextLine();
+
         System.out.println("\npass:");
         String pass = scan.nextLine();
 
-        String fuente = JsonUtiles.leer("usersData");
+        for (Admin admin : admins){
 
-        try {
-            JSONObject obj = new JSONObject(fuente);
-            JSONArray array = obj.getJSONArray("admins");
+            if(admin.getUsuario().equals(usuario)){
 
-            for (int i = 0; i < array.length(); i++){
+                fUser = 1;
 
-                JSONObject temp = array.getJSONObject(i);
+                if(admin.getPass().equals(pass)){
 
-                if(temp.getString("user").equals(usuario)){
-
-                    fUser = 1;
-
-                    if(temp.getString("pass").equals(pass)){
-
-                        fPass = 1;
-
-                        aux.setDni(temp.getInt("dni"));
-                        aux.setNombreApellido(temp.getString("nombre"));
-                        aux.setUsuario(usuario);
-                        aux.setPass(pass);
-                        aux.setCategoria(temp.getString("categoria"));
-
-                    }
+                    fPass = 1;
+                    aux = admin;
                 }
             }
+        }
 
-            if(fUser == 0){
-                throw new UsuarioIncorrecto("Usuario invalido");
+        if(fUser == 0){
+            throw new UsuarioIncorrecto("Usuario invalido");
 
-            }else if(fPass == 0){
-                throw new PasswordIncorrecto("Password invalida");
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+        }else if(fPass == 0){
+            throw new PasswordIncorrecto("Password invalida");
         }
 
         return aux;
@@ -244,11 +215,12 @@ public class Main {
 
                 case 4:
 
-                    ArrayList<Producto> productos = new ArrayList<>();
-
+                    ArrayList<Producto> productos = app.getProductos();
                     StringBuilder flag = new StringBuilder();
 
-                    for (Producto e : productos){
+                    for (int i = 0; i < productos.size(); i++){
+
+                        Producto e = productos.get(i);
 
                         if (e.getStockCajas() < 10){
                             e.setStockCajas(50);
@@ -257,10 +229,15 @@ public class Main {
                     }
 
                     if (flag.isEmpty()){
+
                         flag.append("\nNo hay stock que actualizar!\n\n");
+
+                    }else{
+                        app.setProductos(productos);
                     }
 
                     System.out.println(flag);
+
 
                     break;
 
@@ -275,8 +252,6 @@ public class Main {
             }
 
         }while (opcion != 0);
-
-
     }
 
     public static void menuAdmin(Admin admin, App app){

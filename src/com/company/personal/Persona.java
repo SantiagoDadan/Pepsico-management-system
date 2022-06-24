@@ -48,4 +48,6 @@ public abstract class Persona {
     public void setPass(String pass) {
         this.pass = pass;
     }
+
+    public abstract int calcularExtraSueldo();
 }

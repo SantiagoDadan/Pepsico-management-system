@@ -53,4 +53,10 @@ public class Empleado extends Persona {
                 ", comision=" + comision +
                 '}';
     }
+
+    @Override
+    public int calcularExtraSueldo() {
+
+        return comision + (1000 * antiguedad);
+    }
 }

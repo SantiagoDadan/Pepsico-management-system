@@ -20,4 +20,21 @@ public class Admin extends Persona {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
+
+    @Override
+    public int calcularExtraSueldo() {
+
+        if (categoria.equals("A")) {
+
+            return 15000;
+
+        }else if (categoria.equals("B")){
+
+            return 10000;
+
+        }else{
+
+            return 5000;
+        }
+    }
 }
