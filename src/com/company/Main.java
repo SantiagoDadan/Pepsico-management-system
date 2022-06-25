@@ -182,13 +182,7 @@ public class Main {
 
                     String pedido = app.prepararPedido(empleado);
 
-                    System.out.println(pedido);
-
-                    String stock = app.listarStock().toString();
-
-                    System.out.println(stock);
-
-                    System.out.println("Pedidos empleado: " + empleado.getCantPedidos());
+                    System.out.println(pedido + "Realizado con exito!\n\n");
 
                     break;
 
@@ -204,9 +198,9 @@ public class Main {
 
                 case 3:
 
-                    //String stock = app.listarStock().toString();
+                    String stock = app.listarStock().toString();
 
-                    //System.out.println(stock);
+                    System.out.println(stock);
 
                     break;
 

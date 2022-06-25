@@ -224,7 +224,7 @@ public class App {
 
                     empleado.pasarPedido();
 
-                    builder.append("\nDatos del Pedido: " + pedido.toString() + "\n");
+                    builder.append("\nDatos:\n" + pedido.toString() + "\n\n");
 
                 }else{
 
