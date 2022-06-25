@@ -45,6 +45,11 @@ public class Empleado extends Persona {
         comision = cntCajas * 100;
     }
 
+    public void pasarPedido(){
+        cantPedidos++;
+    }
+
+
     @Override
     public String toString() {
         return "Empleado{" +

@@ -1,5 +1,7 @@
 package com.company.productos;
 
+import java.util.Objects;
+
 public class Snack extends Producto {
 
     // ATRIBUTOS

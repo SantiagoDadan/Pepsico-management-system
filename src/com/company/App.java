@@ -3,22 +3,20 @@ package com.company;
 import com.company.assets.Fila;
 import com.company.assets.FilesUtiles;
 import com.company.assets.JsonUtiles;
+import com.company.envios.Caja;
+import com.company.envios.Camion;
 import com.company.envios.Pedido;
-import com.company.exceptions.PasswordIncorrecto;
-import com.company.exceptions.UsuarioIncorrecto;
+import com.company.exceptions.*;
 import com.company.personal.Admin;
 import com.company.personal.Empleado;
-import com.company.productos.Bebiba;
-import com.company.productos.Cereal;
 import com.company.productos.Producto;
-import com.company.productos.Snack;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Set;
 
 public class App {
 
@@ -26,6 +24,7 @@ public class App {
     private ArrayList<Producto> productos;
     private HashSet<Empleado> empleados;
     private HashSet<Admin> admins;
+    private HashMap<String,Camion> camiones;
 
     public App() {
         pedidos = new Fila<>();
@@ -35,6 +34,8 @@ public class App {
         empleados = new HashSet<>();
         admins = new HashSet<>();
         cargarEmpleadosYAdmins();
+        camiones = new HashMap<>();
+        cargarCamiones();
     }
 
     private void cargarPedidos(){
@@ -105,6 +106,11 @@ public class App {
         }
     }
 
+    private void cargarCamiones(){
+
+        camiones = FilesUtiles.leerCamiones("camiones.bin");
+    }
+
     public Fila<Pedido> getPedidos() {
         return pedidos;
     }
@@ -125,6 +131,10 @@ public class App {
         return admins;
     }
 
+    public HashMap getCamiones() {
+        return camiones;
+    }
+
     public ArrayList<Pedido> listaPedidos(){
 
         ArrayList<Pedido> aux = pedidos.listar();
@@ -141,5 +151,98 @@ public class App {
         }
 
         return stocks;
+    }
+
+    public boolean camionDisponible(){
+
+        boolean aux = false;
+
+        for (int i = 0; i < camiones.size(); i++){
+
+            if (camiones.get(String.valueOf(i+1)).isDisponible()){
+                aux = true;
+                break;
+            }
+        }
+
+        return aux;
+    }
+
+    public boolean comprobarStockPedido(Pedido pedido){
+
+        boolean aux = false;
+
+        int cntCajas = 0, flag = 0;
+
+        ArrayList<Caja> cajas = pedido.getArrayListCajas();
+
+        for (Caja c : cajas){
+
+            cntCajas++;
+
+            for(int i = 0; i < productos.size(); i++){
+
+                if (c.getTipoProducto().getIdProducto() == productos.get(i).getIdProducto()){
+
+                    flag++;
+                }
+            }
+        }
+
+        if(cntCajas == flag){
+
+            aux = true;
+
+            for (Caja c : cajas){
+
+                for(int i = 0; i < productos.size(); i++){
+
+                    if (c.getTipoProducto().getIdProducto() == productos.get(i).getIdProducto()){
+
+                        productos.get(i).setStockCajas(-1);
+                    }
+                }
+            }
+        }
+
+        return aux;
+    }
+
+    public String prepararPedido(Empleado empleado) throws FaltaCamiones, FaltaPedidos, FaltaStock {
+
+        StringBuilder builder = new StringBuilder();
+
+        if (!pedidos.filaVacia()){
+
+            if(camionDisponible()){
+
+                Pedido pedido = pedidos.getPrimero();
+
+                if (comprobarStockPedido(pedido)){
+
+                    pedido = pedidos.avanzar();
+
+                    empleado.pasarPedido();
+
+                    builder.append("\nDatos del Pedido: " + pedido.toString() + "\n");
+
+                }else{
+
+                    throw new FaltaStock("No contamos con stock suficiente para el pedido!");
+                }
+
+            }else{
+
+                throw new FaltaCamiones("No contamos con camiones para realizar el envio!");
+            }
+
+        }else{
+
+            throw new FaltaPedidos("No contamos con pedidos nuevos!");
+        }
+
+        String string = builder.toString();
+
+        return string;
     }
 }

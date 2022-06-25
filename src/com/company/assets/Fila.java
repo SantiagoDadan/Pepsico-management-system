@@ -11,6 +11,14 @@ public class Fila<T> {
         ultimo = null;
     }
 
+    public T getPrimero() {
+        return primero.info;
+    }
+
+    public T getUltimo() {
+        return ultimo.info;
+    }
+
     public boolean filaVacia(){
 
         if(primero == null){
@@ -105,4 +113,5 @@ public class Fila<T> {
             actual = actual.siguiente;
         }
     }
+
 }

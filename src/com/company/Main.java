@@ -1,24 +1,11 @@
 package com.company;
 
-import com.company.assets.Fila;
-import com.company.assets.FilesUtiles;
-import com.company.assets.JsonUtiles;
-import com.company.envios.Caja;
 import com.company.envios.Pedido;
-import com.company.exceptions.PasswordIncorrecto;
-import com.company.exceptions.UsuarioIncorrecto;
+import com.company.exceptions.*;
 import com.company.personal.Admin;
 import com.company.personal.Empleado;
-import com.company.productos.Bebiba;
-import com.company.productos.Cereal;
 import com.company.productos.Producto;
-import com.company.productos.Snack;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.awt.image.AreaAveragingScaleFilter;
-import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -63,6 +50,12 @@ public class Main {
                     }catch (UsuarioIncorrecto | PasswordIncorrecto e){
 
                         System.out.println(e.getMessage());
+                    } catch (FaltaPedidos e) {
+                        e.printStackTrace();
+                    } catch (FaltaStock e) {
+                        e.printStackTrace();
+                    } catch (FaltaCamiones e) {
+                        e.printStackTrace();
                     }
 
                     break;
@@ -172,7 +165,7 @@ public class Main {
         return aux;
     }
 
-    public static void menuEmpleado(Empleado empleado, App app) {
+    public static void menuEmpleado(Empleado empleado, App app) throws FaltaPedidos, FaltaStock, FaltaCamiones {
 
         int opcion;
 
@@ -187,11 +180,15 @@ public class Main {
 
                 case 1:
 
-                    System.out.println("\nDatos del pedido:\n");
-                    Pedido aux = app.getPedidos().avanzar();
-                    System.out.println(aux.toString());
-                    System.out.println("\nPedido en camino!\n");
-                    empleado.cargarPedido(aux.getArrayListCajas().size());
+                    String pedido = app.prepararPedido(empleado);
+
+                    System.out.println(pedido);
+
+                    String stock = app.listarStock().toString();
+
+                    System.out.println(stock);
+
+                    System.out.println("Pedidos empleado: " + empleado.getCantPedidos());
 
                     break;
 
@@ -207,9 +204,9 @@ public class Main {
 
                 case 3:
 
-                    String stock = app.listarStock().toString();
+                    //String stock = app.listarStock().toString();
 
-                    System.out.println(stock);
+                    //System.out.println(stock);
 
                     break;
 
@@ -220,11 +217,9 @@ public class Main {
 
                     for (int i = 0; i < productos.size(); i++){
 
-                        Producto e = productos.get(i);
-
-                        if (e.getStockCajas() < 10){
-                            e.setStockCajas(50);
-                            flag.append("{ Stock de " + e.getNombre() + " renovado! | Actual: " + e.getStockCajas() + " }\n");
+                        if (productos.get(i).getStockCajas() < 10){
+                            productos.get(i).setStockCajas(50);
+                            flag.append("{ Stock de " + productos.get(i).getNombre() + " renovado! | Actual: " + productos.get(i).getStockCajas() + " }\n");
                         }
                     }
 

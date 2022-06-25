@@ -1,10 +1,9 @@
 package com.company.productos;
 
 import java.io.Serializable;
+import java.util.Objects;
 
-public abstract class Producto implements Serializable {
-
-    // ATRIBUTOS
+public abstract class Producto implements Serializable{
 
     private int idProducto;
     private String nombre;
@@ -15,17 +14,12 @@ public abstract class Producto implements Serializable {
 
     private int stockCajas;
 
-
-    // CONSTRUCTOR
-
     public Producto(int idProducto, String nombre, String tipo, int stockCajas) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.tipo = tipo;
         this.stockCajas = stockCajas;
     }
-
-    // SETTERS Y GETTERS
 
     public int getIdProducto() {
         return idProducto;
@@ -59,8 +53,6 @@ public abstract class Producto implements Serializable {
         this.stockCajas += stockCajas;
     }
 
-
-    // TOSTRING
 
     @Override
     public String toString() {
