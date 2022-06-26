@@ -8,12 +8,14 @@ public class Camion implements Serializable {
     private String Marca;
     private int modelo;
     private boolean disponible;
+    private Pedido pedido;
 
     public Camion(String patente, String marca, int modelo, boolean disponible) {
         this.patente = patente;
-        Marca = marca;
+        this.Marca = marca;
         this.modelo = modelo;
         this.disponible = disponible;
+        pedido = new Pedido();
     }
 
     public String getPatente() {
@@ -32,13 +34,20 @@ public class Camion implements Serializable {
         return disponible;
     }
 
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+
     @Override
     public String toString() {
         return "Camion{ " +
                 "patente='" + patente + '\'' +
                 ", Marca='" + Marca + '\'' +
-                ", modelo=" + modelo +
-                ", disponible=" + disponible +
-                " }";
+                ", modelo=" + modelo  + " }\n\n{ Pedido: \n" + pedido +
+                " }\n\n";
     }
 }

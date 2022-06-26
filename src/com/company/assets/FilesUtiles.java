@@ -8,9 +8,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class FilesUtiles {
+public class FilesUtiles {   // clase contenedora de los metodos de grabar y leer archivos para distintos tipos de datos, con sus respectivas clases para File
 
-    public static void grabar(String archivo, Camion obj) {
+    public static void grabar(String archivo, Camion obj) {       //funcion para grabar objetos de tipo Camion en un archivo
 
         try {
 
@@ -31,7 +31,7 @@ public class FilesUtiles {
         }
     }
 
-    public static ArrayList<Pedido> leer(String archivo){
+    public static ArrayList<Pedido> leer(String archivo){      // lee en un arraylist objetos de tipo Pedido provenientes del archivo
 
         ArrayList<Pedido>arrayList = new ArrayList<>();
 
@@ -66,7 +66,7 @@ public class FilesUtiles {
         return arrayList;
     }
 
-    public static ArrayList<Producto> leerProductos(String archivo){
+    public static ArrayList<Producto> leerProductos(String archivo){        // lee en un arraylist objetos de tipo Producto provenientes del archivo
 
         ArrayList<Producto>arrayList = new ArrayList<>();
 
@@ -101,7 +101,7 @@ public class FilesUtiles {
         return arrayList;
     }
 
-    public static HashMap<String,Camion> leerCamiones(String archivo){
+    public static HashMap<String,Camion> leerCamiones(String archivo){        // lee en un arraylist objetos de tipo Camion provenientes del archivo
 
         HashMap<String,Camion> camiones = new HashMap<>();
 

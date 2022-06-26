@@ -4,6 +4,11 @@ public class Admin extends Persona {
 
     String categoria;
 
+    // jerarquia de las categorias del Admin
+    //A: puede realizar acciones con cualquier dato de la empresa (excepto admins)
+    //B: puede realizar acciones con cualquier dato de la empresa, excepto con los empleados
+    //B: puede realizar acciones solo con pedidos y camiones
+
     public Admin() {
 
     }

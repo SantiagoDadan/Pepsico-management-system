@@ -11,12 +11,16 @@ public class Pedido implements Serializable {
     private String destinatario;
     private String direccion;
 
-    // CONSTRUCTOR
+    // CONSTRUCTORES
+
 
     public Pedido(ArrayList<Caja> arrayListCajas, String destinatario, String direccion) {
         this.arrayListCajas = arrayListCajas;
         this.destinatario = destinatario;
         this.direccion = direccion;
+    }
+
+    public Pedido() {
     }
 
     // SETTERS Y GETTERS

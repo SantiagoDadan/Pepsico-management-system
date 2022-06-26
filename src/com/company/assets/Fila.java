@@ -2,7 +2,7 @@ package com.company.assets;
 
 import java.util.ArrayList;
 
-public class Fila<T> {
+public class Fila<T> {      // clase generica que simula una Fila y su funcionamiento a traves de nodos, para trabajar con ellas con objetos de tipo Pedido
 
     private Nodo<T> primero, ultimo;
 
