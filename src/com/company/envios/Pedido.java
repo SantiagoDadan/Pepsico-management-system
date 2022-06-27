@@ -2,6 +2,7 @@ package com.company.envios;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Pedido implements Serializable {
 
@@ -60,4 +61,5 @@ public class Pedido implements Serializable {
                 "Cajas =\n" +  arrayListCajas +
                  '\n';
     }
+
 }

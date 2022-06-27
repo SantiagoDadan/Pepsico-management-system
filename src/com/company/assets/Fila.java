@@ -87,10 +87,11 @@ public class Fila<T> {      // clase generica que simula una Fila y su funcionam
         return array;
     }
 
-    public void eliminar(T aBorrar){
+    public T eliminar(T aBorrar){
 
         Nodo<T> actual = new Nodo<>();
         Nodo<T> anterior = new Nodo<>();
+        Nodo<T> retorno = new Nodo<>();
 
         actual = primero;
         anterior = null;
@@ -101,10 +102,12 @@ public class Fila<T> {      // clase generica que simula una Fila y su funcionam
 
                 if (actual == primero){
 
+                    retorno = primero;
                     primero = primero.siguiente;
 
                 }else{
 
+                    retorno = anterior.siguiente;
                     anterior.siguiente = actual.siguiente;
                 }
             }
@@ -112,6 +115,8 @@ public class Fila<T> {      // clase generica que simula una Fila y su funcionam
             anterior = actual;
             actual = actual.siguiente;
         }
+
+        return retorno.info;
     }
 
 }

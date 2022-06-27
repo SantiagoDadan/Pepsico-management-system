@@ -8,9 +8,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class FilesUtiles {   // clase contenedora de los metodos de grabar y leer archivos para distintos tipos de datos, con sus respectivas clases para File
+public class FilesUtiles<T> {   // clase contenedora de los metodos de grabar y leer archivos para distintos tipos de datos, con sus respectivas clases para File
 
-    public static void grabar(String archivo, Camion obj) {       //funcion para grabar objetos de tipo Camion en un archivo
+    public static void grabar(String archivo, Producto obj) {       //funcion para grabar objetos de tipo Camion en un archivo
 
         try {
 

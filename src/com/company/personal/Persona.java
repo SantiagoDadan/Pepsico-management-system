@@ -1,5 +1,7 @@
 package com.company.personal;
 
+import java.util.Objects;
+
 public abstract class Persona {
 
     private int dni;
@@ -50,4 +52,27 @@ public abstract class Persona {
     }
 
     public abstract int calcularExtraSueldo();
+
+    @Override
+    public String toString() {
+        return "Persona{" +
+                "dni=" + dni +
+                ", nombreApellido='" + nombreApellido + '\'' +
+                ", usuario='" + usuario + '\'' +
+                ", pass='" + pass + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Persona)) return false;
+        Persona persona = (Persona) o;
+        return getDni() == persona.getDni();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getDni());
+    }
 }

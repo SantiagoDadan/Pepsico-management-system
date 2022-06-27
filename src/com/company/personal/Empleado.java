@@ -9,7 +9,7 @@ public class Empleado extends Persona {
     public Empleado() {
     }
 
-    public Empleado(int dni, String nombreApellido, String usuario, String pass, boolean admin, int cantPedidos, int antiguedad, int comision) {
+    public Empleado(int dni, String nombreApellido, String usuario, String pass, int cantPedidos, int antiguedad, int comision) {
         super(dni, nombreApellido, usuario, pass);
         this.cantPedidos = cantPedidos;
         this.antiguedad = antiguedad;
@@ -52,7 +52,7 @@ public class Empleado extends Persona {
 
     @Override
     public String toString() {
-        return "Empleado{" +
+        return super.toString() + "Empleado{" +
                 "cantPedidos=" + cantPedidos +
                 ", antiguedad=" + antiguedad +
                 ", comision=" + comision +
@@ -64,4 +64,6 @@ public class Empleado extends Persona {
 
         return comision + (1000 * antiguedad);
     }
+
+
 }

@@ -8,6 +8,9 @@ public class Cereal extends Producto {
 
     // CONSTRUCTOR
 
+    public Cereal()
+    {}
+
     public Cereal(int idProducto, String nombre, String tipo, int stockCajas, boolean azucar) {
         super(idProducto, nombre, tipo, stockCajas);
         this.azucar = azucar;

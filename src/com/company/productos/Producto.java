@@ -14,6 +14,10 @@ public abstract class Producto implements Serializable{
 
     private int stockCajas;
 
+    public Producto() {
+
+    }
+
     public Producto(int idProducto, String nombre, String tipo, int stockCajas) {
         this.idProducto = idProducto;
         this.nombre = nombre;
@@ -49,10 +53,13 @@ public abstract class Producto implements Serializable{
         return stockCajas;
     }
 
-    public void setStockCajas(int stockCajas) {
+    public void aumentarStock(int stockCajas) {
         this.stockCajas += stockCajas;
     }
 
+    public void setStockCajas(int stockCajas) {
+        this.stockCajas = stockCajas;
+    }
 
     @Override
     public String toString() {

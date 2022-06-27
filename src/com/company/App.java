@@ -10,14 +10,17 @@ import com.company.envios.Pedido;
 import com.company.exceptions.*;
 import com.company.personal.Admin;
 import com.company.personal.Empleado;
+import com.company.productos.Bebiba;
+import com.company.productos.Cereal;
 import com.company.productos.Producto;
+import com.company.productos.Snack;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
+
+import static com.company.Main.scan;
 
 public class App{
 
@@ -135,6 +138,10 @@ public class App{
         return admins;
     }
 
+    public HashMap<String, Camion> getCamiones() {
+        return camiones;
+    }
+
     public String camionesDisponibles() {
 
         StringBuilder builder = new StringBuilder();
@@ -225,7 +232,7 @@ public class App{
 
                     if (c.getTipoProducto().getIdProducto() == productos.get(i).getIdProducto()){
 
-                        productos.get(i).setStockCajas(-1);
+                        productos.get(i).aumentarStock(-1);
                     }
                 }
             }
@@ -235,8 +242,8 @@ public class App{
     }
 
     public Camion asignarCamion() {
-
-        Camion aux = null;
+        Camion aux = null;                                  // metodo que recorre el hashMap de camiones y retorna el primero que encuentra disponible,
+                                                            // y el valor del atributo "disponible" de este camion cambia a false
 
         for (int i = 0; i < camiones.size(); i++) {
 
@@ -254,8 +261,8 @@ public class App{
                                                         // metodo para preparar pedido, donde toma el primero pedido de la lista de pedidos,
         StringBuilder builder = new StringBuilder();    // luego se verifica que haya algun camion disponible para enviarlo y tambien que
                                                         // haya stock de los productos que estan en el pedido. Si alguna de las verificaciones falla,
-        if (!pedidos.filaVacia()){                      // se lanzan excepciones customs, y si son correctas el metodo retorna un string con el pedido.
-
+        if (!pedidos.filaVacia()){                      // se lanzan excepciones customs, y si son correctas el camion se agrega a la Fila de
+                                                        // camiones fuera (camiones en uso) y el metodo retorna un string con camion que se le asigno.
             if(camionDisponible()){
 
                 Pedido pedido = pedidos.getPrimero();
@@ -299,9 +306,9 @@ public class App{
         if (!camionesFuera.filaVacia()){
 
             Camion aux = camionesFuera.avanzar();
-
-            for (int i = 0; i < camiones.size(); i++){
-
+                                                                                                // Si el metodo funciona corretamente, retorna el camion que ya no está en uso.                                           // metodo para setear un camion que ya se usó como disponible. Para hacerlo elimina el camion que esta
+            for (int i = 0; i < camiones.size(); i++){                                          // en la Fila de camiones fuera (camiones en uso) y lo compara con los camiones que estan en el hashMap
+                                                                                                // de camiones, y al encontrarlo en este hashMap le cambia el valor del atributo "disponible" por true.
                 if (aux.getPatente().equals(camiones.get(String.valueOf(i+1)).getPatente())){
                     camiones.get(String.valueOf(i+1)).setDisponible(true);
                 }
@@ -314,12 +321,65 @@ public class App{
             return null;
         }
     }
+
+    public StringBuilder listarProductos(){                     // crea una cadena (String) de productos en base al arraylist de productos
+
+        StringBuilder cadenaProductos = new StringBuilder("\n");
+
+        for (Producto e : productos){
+            cadenaProductos.append(e.toString() + "\n");
+        }
+
+        return cadenaProductos;
+    }
+
+    public StringBuilder listarCamiones(){                  // crea una cadena (String) de camiones en base al hashMap de camiones
+
+        StringBuilder cadenaCamiones = new StringBuilder("\n");
+
+        Iterator<Map.Entry<String, Camion>> filas = camiones.entrySet().iterator();
+
+        while (filas.hasNext())
+        {
+            Map.Entry<String, Camion> entradaMapa = filas.next();
+
+            cadenaCamiones.append(entradaMapa.toString() + "\n");
+        }
+        return cadenaCamiones;
+    }
+
+    public StringBuilder listarEmpleados(){                  // crea una cadena (String) de empleados en base al hashSet de empleados
+
+        StringBuilder cadenaEmpleados = new StringBuilder("\n");
+
+        Iterator<Empleado> iterator = empleados.iterator();
+
+        while (iterator.hasNext())
+        {
+            cadenaEmpleados.append(iterator.next() + "\n");
+        }
+
+        return cadenaEmpleados;
+    }
+
+    public void nuevoProducto(Producto producto){
+
+        productos.add(producto);
+    }
+
+    public void nuevoPedido(Pedido pedido){
+
+        pedidos.insertar(pedido);
+    }
+
+    public void nuevoCamion(Camion camion){
+
+        camiones.put(String.valueOf(camiones.size()+1), camion);
+    }
+
+    public void nuevoEmpleado(Empleado empleado){
+
+        empleados.add(empleado);
+    }
 }
-
-
-
-
-
-
-
 

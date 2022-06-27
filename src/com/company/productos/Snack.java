@@ -10,6 +10,9 @@ public class Snack extends Producto {
 
     // CONSTRUCTOR
 
+    public Snack()
+    {}
+
     public Snack(int idProducto, String nombre, String tipo, int stockCajas, boolean esSalado) {
         super(idProducto, nombre, tipo, stockCajas);
         this.esSalado = esSalado;

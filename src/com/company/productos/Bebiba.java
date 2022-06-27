@@ -11,6 +11,17 @@ public class Bebiba extends Producto {
 
     // CONSTRUCTOR
 
+    public Bebiba()
+    {
+        super();
+    }
+
+    public Bebiba(String sabor)
+    {
+        super();
+        this.sabor = sabor;
+    }
+
     public Bebiba(int idProducto, String nombre, String tipo, int stockCajas, String sabor) {
         super(idProducto, nombre, tipo, stockCajas);
         this.sabor = sabor;

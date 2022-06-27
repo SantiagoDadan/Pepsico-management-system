@@ -42,6 +42,18 @@ public class Camion implements Serializable {
         this.pedido = pedido;
     }
 
+    public void setMarca(String marca) {
+        Marca = marca;
+    }
+
+    public void setModelo(int modelo) {
+        this.modelo = modelo;
+    }
+
+    public void setPatente(String patente) {
+        this.patente = patente;
+    }
+
     @Override
     public String toString() {
         return "Camion{ " +
