@@ -7,6 +7,7 @@ import com.company.productos.Producto;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class FilesUtiles<T> {   // clase contenedora de los metodos de grabar y leer archivos para distintos tipos de datos, con sus respectivas clases para File
 
@@ -69,9 +70,11 @@ public class FilesUtiles<T> {   // clase contenedora de los metodos de grabar y 
             FileOutputStream fileOutputStream = new FileOutputStream(archivo);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
-            for (int i = 0; i < camiones.size(); i++){
+            Iterator<Camion> iterator = camiones.values().iterator();
 
-                objectOutputStream.writeObject((Camion)camiones.get(String.valueOf(i+1)));
+            while (iterator.hasNext()){
+
+                objectOutputStream.writeObject(iterator.next());
             }
 
             objectOutputStream.close();

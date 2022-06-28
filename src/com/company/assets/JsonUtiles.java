@@ -6,14 +6,16 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 
 public class JsonUtiles {
 
-    public static void grabar(JSONArray array) {
+    public static void grabar(JSONObject obj) {
+
         try {
             FileWriter file = new FileWriter("usersData.json");
-            file.write(array.toString());
+            file.write(obj.toString());
             file.flush();
             file.close();
 

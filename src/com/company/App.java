@@ -90,6 +90,8 @@ public class App{
             e.printStackTrace();
         }
 
+        fuente = JsonUtiles.leer("usersData");
+
         try {
             JSONObject obj = new JSONObject(fuente);
             JSONArray array = obj.getJSONArray("admins");
@@ -392,11 +394,56 @@ public class App{
         empleados.add(empleado);
     }
 
-    public void close(){
+    public void close() {
 
         FilesUtiles.grabarPedidos("pedidos.bin", pedidos);
         FilesUtiles.grabarProductos("productos.bin", productos);
         FilesUtiles.grabarCamiones("camiones.bin", camiones);
+
+        try {
+
+            JSONArray empleados = new JSONArray();
+
+            for (Empleado e : this.empleados){
+
+                JSONObject aux = new JSONObject();
+
+                aux.put("dni", e.getDni());
+                aux.put("nombre", e.getNombreApellido());
+                aux.put("user", e.getUsuario());
+                aux.put("pass", e.getPass());
+                aux.put("pedidos", e.getCantPedidos());
+                aux.put("antiguedad", e.getAntiguedad());
+                aux.put("comision", e.getComision());
+
+                empleados.put(aux);
+            }
+
+            JSONArray admins = new JSONArray();
+
+            for (Admin e : this.admins){
+
+                JSONObject aux = new JSONObject();
+
+                aux.put("dni", e.getDni());
+                aux.put("nombre", e.getNombreApellido());
+                aux.put("user", e.getUsuario());
+                aux.put("pass", e.getPass());
+                aux.put("categoria", e.getCategoria());
+
+                admins.put(aux);
+            }
+
+            JSONObject objAux = new JSONObject();
+            objAux.put("empleados", empleados);
+            objAux.put("admins", admins);
+
+            JsonUtiles.grabar(objAux);
+
+        }catch (JSONException f){
+
+            f.printStackTrace();
+        }
     }
 }
 

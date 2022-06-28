@@ -10,6 +10,7 @@ import com.company.productos.Bebiba;
 import com.company.productos.Cereal;
 import com.company.productos.Producto;
 import com.company.productos.Snack;
+import org.json.JSONException;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -28,6 +29,8 @@ public class Main {
         App app = new App();
 
         menu(app);
+
+        app.close();
 
         scan.close();
     }
