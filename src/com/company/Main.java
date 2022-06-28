@@ -316,7 +316,7 @@ public class Main {
 
                     if (aux != null){
 
-                        System.out.println("Volvio el " + aux);
+                        System.out.println("Volvio el " + aux.imprimir());
                     }else {
                         System.out.println("No hay camiones realizando entregas!");
                     }
@@ -388,6 +388,8 @@ public class Main {
 
         do {
 
+            System.out.println("\nListar?:\n");
+
             if (admin.getCategoria().equals("A"))
             {
                 System.out.println("\n1 - Productos\n2 - Pedidos\n3 - Camiones\n4 - Empleados\n0 - Salir de Opcion Agregar");
@@ -401,7 +403,6 @@ public class Main {
                 System.out.println("1 - Bloqueado (solo categoria A / B)\n2 - Pedidos\n3 - Camiones\n4 - Bloqueado (solo categoria A)\n0 - Salir de Opcion Agregar");
             }
 
-            System.out.println("\n¿Que quiere listar?:");
             opcionListar = scan.nextInt();
 
             switch (opcionListar){
@@ -540,6 +541,8 @@ public class Main {
 
         do {
 
+            System.out.println("\nModificar?:\n");
+
             if (admin.getCategoria().equals("A"))
             {
                 System.out.println("\n1 - Productos\n2 - Pedidos\n3 - Camiones\n4 - Empleados\n0 - Salir de Opcion Agregar");
@@ -553,7 +556,6 @@ public class Main {
                 System.out.println("1 - Bloqueado (solo categoria A / B)\n2 - Pedidos\n3 - Camiones\n4 - Bloqueado (solo categoria A)\n0 - Salir de Opcion Agregar");
             }
 
-            System.out.println("\n¿Que quiere modificar?:");
             opcionModificar = scan.nextInt();
 
             switch (opcionModificar){
@@ -637,6 +639,8 @@ public class Main {
 
         do {
 
+            System.out.println("\nEliminar?:\n");
+
             if (admin.getCategoria().equals("A"))
             {
                 System.out.println("\n1 - Productos\n2 - Pedidos\n3 - Camiones\n4 - Empleados\n0 - Salir de Opcion Agregar");
@@ -650,7 +654,6 @@ public class Main {
                 System.out.println("1 - Bloqueado (solo categoria A / B)\n2 - Pedidos\n3 - Camiones\n4 - Bloqueado (solo categoria A)\n0 - Salir de Opcion Agregar");
             }
 
-            System.out.println("\n¿Que quiere eliminar?:");
             opcionEliminar = scan.nextInt();
 
             switch (opcionEliminar){
