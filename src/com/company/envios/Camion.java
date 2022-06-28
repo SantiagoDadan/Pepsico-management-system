@@ -1,8 +1,10 @@
 package com.company.envios;
 
+import com.company.assets.I_Imprimir;
+
 import java.io.Serializable;
 
-public class Camion implements Serializable {
+public class Camion implements Serializable, I_Imprimir {
 
     private String patente;
     private String Marca;
@@ -61,5 +63,10 @@ public class Camion implements Serializable {
                 ", Marca='" + Marca + '\'' +
                 ", modelo=" + modelo  + " }\n\n{ Pedido: \n" + pedido +
                 " }\n\n";
+    }
+
+    @Override
+    public String imprimir() {
+        return "{ Camion: " + patente + " Marca: " + getMarca() + " Modelo: " + modelo + " }\n";
     }
 }

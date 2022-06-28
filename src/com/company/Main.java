@@ -387,18 +387,15 @@ public class Main {
 
             if (admin.getCategoria().equals("A"))
             {
-                System.out.println("\nAl ser un Adminstador de categoria \"" + admin.getCategoria() + "\" puede Listar lo siguiente:");
-                System.out.println("\n1 - Productos\n2 - Pedidos\n3 - Camiones\n4 - Empleados\n0 - Salir de Opcion Listar");
+                System.out.println("\n1 - Productos\n2 - Pedidos\n3 - Camiones\n4 - Empleados\n0 - Salir de Opcion Agregar");
             }
             else if (admin.getCategoria().equals("B"))
             {
-                System.out.println("\nAl ser un Adminstador de categoria \"" + admin.getCategoria() + "\" puede Listar lo siguiente:");
-                System.out.println("\n1 - Productos\n2 - Pedidos\n3 - Camiones\n0 - Salir de Opcion Listar");
+                System.out.println("\n1 - Productos\n2 - Pedidos\n3 - Camiones\n4 - Bloqueado (solo categoria A)\n0 - Salir de Opcion Agregar");
             }
             else
             {
-                System.out.println("\nAl ser un Adminstador de categoria \"" + admin.getCategoria() + "\" puede Listar lo siguiente:");
-                System.out.println("2 - Pedidos\n3 - Camiones\n0 - Salir de Opcion Listar");
+                System.out.println("1 - Bloqueado (solo categoria A / B)\n2 - Pedidos\n3 - Camiones\n4 - Bloqueado (solo categoria A)\n0 - Salir de Opcion Agregar");
             }
 
             System.out.println("\n¿Que quiere listar?:");
@@ -426,7 +423,7 @@ public class Main {
 
                     for (int i = 0; i < pedidos.size(); i++){
 
-                        System.out.println(pedidos.get(i).toString());
+                        System.out.println(pedidos.get(i).imprimir() );
                     }
 
                     break;
@@ -1484,11 +1481,11 @@ public class Main {
 
         for (int i = 0; i < app.getCamiones().size(); i++){
 
-            Camion flag = app.getCamiones().get(String.valueOf(i+1));
+            Camion flag = app.getCamiones().get(patente);
 
             if (flag.getPatente().equals(patente)){
 
-                camion = app.getCamiones().get(String.valueOf(i+1));
+                camion = app.getCamiones().get(patente);
                 break;
             }
         }
@@ -1736,13 +1733,15 @@ public class Main {
         System.out.println("\n\nIngrese la patente del camion a eliminar:");
         String patente = scan.nextLine();
 
-        for (int i = 0; i < app.getCamiones().size(); i++){
+        Iterator<Camion> iterator = app.getCamiones().values().iterator();
 
-            if (app.getCamiones().get(String.valueOf(i+1)).getPatente().equals(patente)){
+        while (iterator.hasNext()){
+
+            if (iterator.next().getPatente().equals(patente)){
 
                 flag =1;
 
-                app.getCamiones().remove(String.valueOf(i+1));
+                app.getCamiones().remove(patente);
 
                 System.out.println("\n\nCamion eliminado con exito!\n");
             }

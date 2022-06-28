@@ -1,10 +1,11 @@
 package com.company.envios;
 
+import com.company.assets.I_Imprimir;
+
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Objects;
 
-public class Pedido implements Serializable {
+public class Pedido implements Serializable, I_Imprimir {
 
     // ATRIBUTOS
 
@@ -62,4 +63,16 @@ public class Pedido implements Serializable {
                  '\n';
     }
 
+    @Override
+    public String imprimir() {
+
+        StringBuilder builder =new StringBuilder();
+
+        for (Caja c : arrayListCajas){
+
+            builder.append(c.imprimir() + "\n");
+        }
+
+        return "{ Pedido para: " + destinatario + " Direccion: " + direccion + builder + " }";
+    }
 }

@@ -11,8 +11,12 @@ public class Fila<T> {      // clase generica que simula una Fila y su funcionam
         ultimo = null;
     }
 
-    public T getPrimero() {
+    public T getPrimeroInfo() {
         return primero.info;
+    }
+
+    public Nodo<T> getPrimero() {
+        return primero;
     }
 
     public T getUltimo() {

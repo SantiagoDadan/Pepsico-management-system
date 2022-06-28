@@ -1,10 +1,11 @@
 package com.company.envios;
 
+import com.company.assets.I_Imprimir;
 import com.company.productos.Producto;
 
 import java.io.Serializable;
 
-public class Caja implements Serializable {
+public class Caja implements Serializable, I_Imprimir {
 
     // ATRIBUTOS
 
@@ -55,5 +56,10 @@ public class Caja implements Serializable {
                 ", tamanioProductos='" + tamanioProductos +
                 ", cantProductosPorCaja='" + cantProductosPorCaja +
                 '}' + "\n";
+    }
+
+    @Override
+    public String imprimir() {
+        return "{ Caja: " + "Producto: " +tipoProducto.getNombre() + " / " +tamanioProductos + " }";
     }
 }

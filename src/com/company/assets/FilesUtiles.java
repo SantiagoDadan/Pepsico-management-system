@@ -10,14 +10,69 @@ import java.util.HashMap;
 
 public class FilesUtiles<T> {   // clase contenedora de los metodos de grabar y leer archivos para distintos tipos de datos, con sus respectivas clases para File
 
-    public static void grabar(String archivo, Producto obj) {       //funcion para grabar objetos de tipo Camion en un archivo
+    public static void grabarPedidos(String archivo, Fila<Pedido> pedidos) {
 
         try {
 
             FileOutputStream fileOutputStream = new FileOutputStream(archivo);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
-            objectOutputStream.writeObject(obj);
+            Nodo<Pedido> nn = pedidos.getPrimero();
+
+            while (nn != null){
+
+                objectOutputStream.writeObject(nn.info);
+                nn = nn.siguiente;
+
+            }
+
+            objectOutputStream.close();
+
+        }catch (FileNotFoundException e){
+
+            e.printStackTrace();
+
+        }catch (IOException e){
+
+            e.printStackTrace();
+        }
+    }
+
+    public static void grabarProductos(String archivo, ArrayList<Producto> productos) {
+
+        try {
+
+            FileOutputStream fileOutputStream = new FileOutputStream(archivo);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+
+            for (Producto p : productos){
+
+                objectOutputStream.writeObject(p);
+            }
+
+            objectOutputStream.close();
+
+        }catch (FileNotFoundException e){
+
+            e.printStackTrace();
+
+        }catch (IOException e){
+
+            e.printStackTrace();
+        }
+    }
+
+    public static void grabarCamiones(String archivo, HashMap<String, Camion> camiones) {
+
+        try {
+
+            FileOutputStream fileOutputStream = new FileOutputStream(archivo);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+
+            for (int i = 0; i < camiones.size(); i++){
+
+                objectOutputStream.writeObject((Camion)camiones.get(String.valueOf(i+1)));
+            }
 
             objectOutputStream.close();
 
@@ -110,12 +165,12 @@ public class FilesUtiles<T> {   // clase contenedora de los metodos de grabar y 
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
             int path = 1;
-            int ordenCamion = 1;
 
             while (path == 1){
 
-                camiones.put(String.valueOf(ordenCamion),(Camion) objectInputStream.readObject());
-                ordenCamion++;
+                Camion aux = (Camion) objectInputStream.readObject();
+
+                camiones.put(aux.getPatente(), aux);
             }
 
             objectInputStream.close();

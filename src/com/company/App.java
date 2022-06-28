@@ -146,13 +146,15 @@ public class App{
 
         StringBuilder builder = new StringBuilder();
 
-        for (int i = 0; i < camiones.size(); i++){
+        Iterator<Camion> iterator = camiones.values().iterator();
 
-            Camion aux = camiones.get(String.valueOf(i+1));
+        while (iterator.hasNext()){
+
+            Camion aux = iterator.next();
 
             if (aux.isDisponible()){
 
-                builder.append(aux.toString());
+                builder.append(aux.imprimir());
             }
         }
 
@@ -186,13 +188,15 @@ public class App{
         return camionesFuera.listar();
     }
 
-    public boolean camionDisponible(){     // comprueba de que haya algun camion en el array de camiones que este disponible para usarlo
+    public boolean camionDisponible() {     // comprueba de que haya algun camion en el array de camiones que este disponible para usarlo
 
         boolean aux = false;
 
-        for (int i = 0; i < camiones.size(); i++){
+        Iterator<Camion> iterator = camiones.values().iterator();
 
-            if (camiones.get(String.valueOf(i+1)).isDisponible()){
+        while (iterator.hasNext()){
+
+            if (iterator.next().isDisponible()){
                 aux = true;
                 break;
             }
@@ -244,13 +248,16 @@ public class App{
     public Camion asignarCamion() {
         Camion aux = null;                                  // metodo que recorre el hashMap de camiones y retorna el primero que encuentra disponible,
                                                             // y el valor del atributo "disponible" de este camion cambia a false
+        Iterator<Camion> iterator = camiones.values().iterator();
 
-        for (int i = 0; i < camiones.size(); i++) {
+        while (iterator.hasNext()) {
 
-            if (camiones.get(String.valueOf(i + 1)).isDisponible()) {
+            Camion camion = iterator.next();
 
-                aux = camiones.get(String.valueOf(i + 1));
-                camiones.get(String.valueOf(i+1)).setDisponible(false);
+            if (camion.isDisponible()) {
+
+                aux = camion;
+                camion.setDisponible(false);
                 break;
             }
         }
@@ -265,7 +272,7 @@ public class App{
                                                         // camiones fuera (camiones en uso) y el metodo retorna un string con camion que se le asigno.
             if(camionDisponible()){
 
-                Pedido pedido = pedidos.getPrimero();
+                Pedido pedido = pedidos.getPrimeroInfo();
 
                 if (comprobarStockPedido(pedido)){
 
@@ -306,11 +313,14 @@ public class App{
         if (!camionesFuera.filaVacia()){
 
             Camion aux = camionesFuera.avanzar();
+
+            Iterator<Camion> iterator = camiones.values().iterator();
                                                                                                 // Si el metodo funciona corretamente, retorna el camion que ya no está en uso.                                           // metodo para setear un camion que ya se usó como disponible. Para hacerlo elimina el camion que esta
-            for (int i = 0; i < camiones.size(); i++){                                          // en la Fila de camiones fuera (camiones en uso) y lo compara con los camiones que estan en el hashMap
+            while (iterator.hasNext()){                                          // en la Fila de camiones fuera (camiones en uso) y lo compara con los camiones que estan en el hashMap
                                                                                                 // de camiones, y al encontrarlo en este hashMap le cambia el valor del atributo "disponible" por true.
-                if (aux.getPatente().equals(camiones.get(String.valueOf(i+1)).getPatente())){
-                    camiones.get(String.valueOf(i+1)).setDisponible(true);
+                String patente = iterator.next().getPatente();
+                if (aux.getPatente().equals(patente)){
+                    camiones.get(patente).setDisponible(true);
                 }
             }
 
@@ -337,13 +347,13 @@ public class App{
 
         StringBuilder cadenaCamiones = new StringBuilder("\n");
 
-        Iterator<Map.Entry<String, Camion>> filas = camiones.entrySet().iterator();
+        Iterator<Camion> iterator = camiones.values().iterator();
 
-        while (filas.hasNext())
+        while (iterator.hasNext())
         {
-            Map.Entry<String, Camion> entradaMapa = filas.next();
 
-            cadenaCamiones.append(entradaMapa.toString() + "\n");
+            cadenaCamiones.append(iterator.next().imprimir() + "\n");
+
         }
         return cadenaCamiones;
     }
@@ -374,12 +384,19 @@ public class App{
 
     public void nuevoCamion(Camion camion){
 
-        camiones.put(String.valueOf(camiones.size()+1), camion);
+        camiones.put(camion.getPatente(), camion);
     }
 
     public void nuevoEmpleado(Empleado empleado){
 
         empleados.add(empleado);
+    }
+
+    public void close(){
+
+        FilesUtiles.grabarPedidos("pedidos.bin", pedidos);
+        FilesUtiles.grabarProductos("productos.bin", productos);
+        FilesUtiles.grabarCamiones("camiones.bin", camiones);
     }
 }
 
